@@ -7,6 +7,7 @@ var AutoZoom = require('./auto_zoom');
 var DistanceToDestination = require('./distance_to_destination');
 var DistanceToNextTurn = require('./distance_to_next_turn');
 var Leaflet = require('./leaflet');
+var MapboxGL = require('./mapboxgl');
 var MapRotator = require('./map_rotator');
 var NextStreet = require('./next_street');
 var RouteOverview = require('./route_overview');
@@ -25,6 +26,7 @@ var TimeToDestination = require('./time_to_destination');
     DistanceToDestination: DistanceToDestination,
     DistanceToNextTurn: DistanceToNextTurn,
     Leaflet: Leaflet,
+    MapboxGL: MapboxGL,
     MapRotator: MapRotator,
     NextStreet: NextStreet,
     RouteOverview: RouteOverview,
