@@ -1,65 +1,15 @@
-var Base = require('../base');
+var BaseMap = require('../base_map');
 
-var Leaflet = Base.extend({
+var Leaflet = BaseMap.extend({
   /**
    * Max Zoom is 18
    * @augments ffwdme.Class
    * @constructs
    *
    */
-  constructor: function(options) {
-    this.base(options);
-    this.bindAll(this, 'resize', 'drawRoute', 'drawMarkerWithoutRoute', 'onRouteSuccess', 'navigationOnRoute', 'navigationOffRoute', 'rotateMarker', 'setupMap');
-
-    Leaflet.defineLeafletExtensions();
-
-    this.mapReadyCallbacks = [];
-
-    this.setupMap();
-
-    ffwdme.on('geoposition:update', this.drawMarkerWithoutRoute);
-    ffwdme.on('routecalculation:success', this.onRouteSuccess);
-    ffwdme.on('routecalculation:success', this.drawRoute);
-    ffwdme.on('reroutecalculation:success', this.drawRoute);
-  },
-
-  attrAccessible: ['el', 'apiKey'],
-
-  map: null,
-
-  polylines: null,
-
-  helpLine: null,
-
-  marker: null,
-
-  markerIcon: null,
-
-  zoomLevel: 17,
-
-  inRoutingMode: false,
-
-  inRouteOverview: false,
-
-  mapReady: false,
-
-  mapReadyCallbacks: null,
-
-  userZoom: 0,
-
-  canControlMap: function(component) {
-    if (component instanceof ffwdme.components.AutoZoom && this.inRouteOverview) { return false; }
-    if (component instanceof ffwdme.components.MapRotator && this.inRouteOverview) { return false; }
-    return true;
-  },
-
-  setupEventsOnMapReady: function() {
-    ffwdme.on('navigation:onroute', this.navigationOnRoute);
-    ffwdme.on('navigation:offroute', this.navigationOffRoute);
-    ffwdme.on('geoposition:update', this.rotateMarker);
-  },
 
   setupMap: function() {
+    Leaflet.defineLeafletExtensions();
     var destination = new L.LatLng(this.options.center.lat, this.options.center.lng);
 
     this.map = new L.Map(this.el.attr('id'), {
@@ -76,15 +26,7 @@ var Leaflet = Base.extend({
       this.map.locate({setView: true, maxZoom: 17});
     }
 
-    this.setupEventsOnMapReady();
-
-    for (var i = 0; i < this.mapReadyCallbacks.length; i++) {
-      this.mapReadyCallbacks[i]();
-    }
-
-    this.mapReadyCallbacks = [];
-
-    this.mapReady = true;
+    this.mapReady();
   },
 
   hideMarker: function() {
@@ -151,18 +93,6 @@ var Leaflet = Base.extend({
     this.map.addLayer(this.finishMarker);
   },
 
-  navigationOnRoute: function(e) {
-    var p = e.navInfo.position;
-    this.removeHelpLine();
-    this.drawMarkerOnMap(p.lat, p.lng, true);
-  },
-
-  navigationOffRoute: function(e) {
-    var p = e.navInfo.positionRaw;
-    this.drawMarkerOnMap(p.lat, p.lng, true);
-    this.drawHelpLine(e.navInfo.positionRaw, e.navInfo.position);
-  },
-
   drawPolylineOnMap: function(route, center){
     var directions = route.directions, len = directions.length, len2, path;
 
@@ -204,10 +134,6 @@ var Leaflet = Base.extend({
     }
   },
 
-  removeHelpLine: function() {
-    this.helpLine && this.map.removeLayer(this.helpLine);
-  },
-
   drawHelpLine: function(rawPos, desiredPos) {
     var latlngs = [
       new L.LatLng(rawPos.lat,      rawPos.lng),
@@ -223,19 +149,6 @@ var Leaflet = Base.extend({
     }
   },
 
-  changeUserZoom: function(value){
-    this.userZoom += value;
-  },
-
-  getZoom: function() {
-    return this.zoomLevel + this.userZoom;
-  },
-
-  setZoom: function(zoom) {
-    this.zoomLevel = zoom;
-    return this.zoomLevel;
-  },
-
   setMapContainerSize: function(width, height, top, left, rotate){
     this.el && this.el.animate({ rotate: rotate + 'deg' });
     this.el.css({
@@ -245,15 +158,6 @@ var Leaflet = Base.extend({
       left: left
     });
     if (this.map) this.map._onResize();
-  },
-
-  toggleRouteOverview: function(){
-    this.inRouteOverview = !this.inRouteOverview;
-
-    if (this.inRouteOverview){
-      this.setMapContainerSize($(window).width(), $(window).height(), 0, 0, 0);
-    }
-    return this.inRouteOverview;
   }
 
 }, {
