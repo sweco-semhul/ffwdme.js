@@ -242,7 +242,7 @@ var MapboxGL = BaseMap.extend({
       top: top,
       left: left
     });
-    if (this.map) this.map._onResize();
+    if (this.map) this.map._onWindowResize();
   },
 
   _lnglatsToLineString: function(lnglats) {
