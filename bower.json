@@ -4,11 +4,8 @@
   "description": "A JavaScript toolkit that aims to bring interactive GPS driving directions to the mobile browser",
   "main": [
     "dist/ffwdme-core.js",
-    "dist/ffwdme-core.min.js",
     "dist/ffwdme-components.js",
-    "dist/ffwdme-components.min.js",
-    "dist/ffwdme-debug.js",
-    "dist/ffwdme-debug.min.js"
+    "dist/ffwdme-debug.js"
   ],
   "ignore": [
     ".*",
