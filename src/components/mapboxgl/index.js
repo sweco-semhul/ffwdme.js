@@ -14,29 +14,20 @@ var MapboxGL = BaseMap.extend({
     mapboxgl.accessToken = this.options.access_token;
     this.map = new mapboxgl.Map({
       container: this.el.attr('id'),
-      style: 'mapbox://styles/mapbox/streets-v8',
+      style: this.options.styleURL,
       center: [this.options.center.lng, this.options.center.lat],
       zoom: 17,
       pitch: 75
     });
-/*
-    L.tileLayer(this.options.tileURL, {
-      minZoom: 10,
-      maxZoom: 18,
-    }).addTo(this.map);
-*/
+
     this.map.on('style.load', function () {
-      this.drawMarkerWithoutRoute({
-        point: this.options.center
-      });
+      if(!this.options.disableLeafletLocate) {
+        this.drawMarkerWithoutRoute({
+          point: this.options.center
+        });
+      }
       this.mapReady();
     }.bind(this));
-
-
-    /*  if(!this.options.disableLeafletLocate) {
-        this.locate({setView: true, maxZoom: 17});
-      }*/
-
   },
 
   hideMarker: function() {
