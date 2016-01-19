@@ -61,14 +61,14 @@ var MapboxGL = BaseMap.extend({
       this.map.addSource('gps-point', this.markerSource);
 
       markerLayer = {
-          "id": "gps-point",
-          "type": "symbol",
-          "source": "gps-point",
-          "layout": {
-            "icon-image": "marker-15",
-            "icon-size": 1.4,
-            "icon-rotate": 180
-          }
+        "id": "gps-point",
+        "type": "circle",
+        "source": "gps-point",
+        "paint": {
+            "circle-radius": 18,
+            "circle-color": "#0066ff",
+            "circle-opacity": 0.7
+        }
       };
 
       this.disableMarker || this.map.addLayer(markerLayer);
