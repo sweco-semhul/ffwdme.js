@@ -6,7 +6,8 @@
     "dist/ffwdme-core.js",
     "dist/ffwdme-components.js",
     "dist/ffwdme-debug.js",
-    "dist/components"
+    "dist/components",
+    "dist/debug"
   ],
   "ignore": [
     ".*",
