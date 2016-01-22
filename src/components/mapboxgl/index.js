@@ -20,6 +20,7 @@ var MapboxGL = BaseMap.extend({
       pitch: 75
     });
 
+    // Draw marker at start
     this.map.on('style.load', function () {
       if(!this.options.disableLeafletLocate) {
         this.drawMarkerWithoutRoute({
@@ -46,21 +47,21 @@ var MapboxGL = BaseMap.extend({
 
     if (this.inRoutingMode) return;
 
-    var markerLayer;
+    var markerPoint;
 
     if (!this.marker) {
-      this.marker = {
+      markerPoint = {
         "type": "Point",
         "coordinates": [e.point.lng, e.point.lat]
       };
 
       this.markerSource = new mapboxgl.GeoJSONSource({
-        data: this.marker
+        data: markerPoint
       });
 
       this.map.addSource('gps-point', this.markerSource);
 
-      markerLayer = {
+      this.marker = {
         "id": "gps-point",
         "type": "circle",
         "source": "gps-point",
@@ -70,8 +71,10 @@ var MapboxGL = BaseMap.extend({
             "circle-opacity": 0.7
         }
       };
+      // Store marker point data as a reference
+      this.marker._markerPoint = markerPoint;
 
-      this.disableMarker || this.map.addLayer(markerLayer);
+      this.disableMarker || this.map.addLayer(this.marker);
     } else {
       this.drawMarkerOnMap(e.point.lat, e.point.lng, true, e.geoposition.coords.heading);
     }
@@ -176,12 +179,12 @@ var MapboxGL = BaseMap.extend({
     if (center && !this.inRouteOverview) this.map.fitBounds(mapboxgl.LatLngBounds.convert(latlngs));
   },
 
-  drawMarkerOnMap: function(lat, lng, center, bearing){
-    this.marker.coordinates = [lng, lat];
-    this.markerSource.setData(this.marker);
+  drawMarkerOnMap: function(lat, lng, center, bearing) {
+    this.marker._markerPoint.coordinates = [lng, lat];
+    this.markerSource.setData(this.marker._markerPoint);
     if (center && !this.inRouteOverview) {
       this.map.easeTo({
-        center: this.marker.coordinates,
+        center: this.marker._markerPoint.coordinates,
         zoom: this.getZoom(),
         bearing: bearing || this.map.getBearing()
       });
