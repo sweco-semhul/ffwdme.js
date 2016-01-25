@@ -172,7 +172,7 @@ var MapboxGL = BaseMap.extend({
       this.map.addLayer(this.polylines.underlay.layer);
       this.map.addLayer(this.polylines.overlay.layer);
     } else {
-      this.polylines.underlay.source.setData(this._lnglatsToLineString(lnglats));
+      this.polylines.underlay.source.setData(lnglats);
     }
 
     // zoom the map to the polyline
@@ -202,29 +202,23 @@ var MapboxGL = BaseMap.extend({
     ];
 
     if (!this.helpLine) {
-      this.helpLine.source = {
-        "type": "geojson",
-        "data": {
-            "type": "Feature",
-            "properties": {},
-            "geometry": {
-                "type": "LineString",
-                "coordinates": lnglats
-            }
-        }
-      };
-      this.helpLine.layer = {
-        "id": "help-line",
-        "type": "line",
-        "source": "help-line",
-        "layout": {
-            "line-join": "round",
-            "line-cap": "round"
-        },
-        "paint": {
-            "line-color": "red",
-            "line-width": 2,
-            "opacity": 0.5
+      this.helpLine = {
+        source: new mapboxgl.GeoJSONSource({
+          data: this._lnglatsToLineString(lnglats)
+        }),
+        layer: {
+          "id": "help-line",
+          "type": "line",
+          "source": "help-line",
+          "layout": {
+              "line-join": "round",
+              "line-cap": "round"
+          },
+          "paint": {
+              "line-color": "red",
+              "line-width": 2,
+              "opacity": 0.5
+          }
         }
       };
 
@@ -232,7 +226,6 @@ var MapboxGL = BaseMap.extend({
       this.map.addLayer(this.helpLine.layer);
     } else {
       this.helpLine.source.setData(this._lnglatsToLineString(lnglats));
-      this.map.addLayer(this.helpLine);
     }
   },
 
