@@ -125,15 +125,13 @@ var OSRM = Base.extend({
         distance:     parseInt(instruction[2], 10),
         duration:     instruction[4] / 1000,
         turnAngle:    instruction[10], // A guess that this should be {pre-turn azimuth}
-        turnType:     this.extractTurnType(instruction[9]) // A guess that this should be {pre-turn direction}
+        turnType:     this.extractTurnType(instruction[0]) // A guess that this should be {pre-turn direction}
       };
 
       // Path is between this and next instruction
       var nextInstructionIndex = i+1 >= len ? len-1 : i+1;
 
       d.path = path.slice(instruction[3], instructions[nextInstructionIndex][3] + 1);
-      console.log(i, nextInstructionIndex, instruction[3], instructions[nextInstructionIndex][3] + 1, path.length, d.path.length);
-
       routeStruct.directions.push(d);
     }
 
