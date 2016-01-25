@@ -9,6 +9,7 @@ var RoutingGraphHopper = require('./routing/graph_hopper');
 var RoutingOSRM = require('./routing/osrm');
 var UtilsGeo = require('./utils/geo');
 var UtilsProxy = require('./utils/proxy');
+var UtilsXHR = require('./utils/xhr');
 
 (function(global, undefined) {
   /**
@@ -32,7 +33,8 @@ var UtilsProxy = require('./utils/proxy');
 
     utils: {
       Geo: UtilsGeo,
-      Proxy: UtilsProxy
+      Proxy: UtilsProxy,
+      XHR: UtilsXHR
     },
 
 
