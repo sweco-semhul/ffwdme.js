@@ -1,0 +1,31 @@
+{
+	"request_to_get_this": "https://router.project-osrm.org/viaroute?instructions=true&alt=true&z=18&loc=38.91107167286462,-77.04368591308594&loc=38.91109671788351,-77.04302072525024",
+	"status": 200,
+	"hint_data": {
+		"locations": ["o_auDP____9KuwUAIgAAADUAAAAAAAAAAAAAAP____9P6QAAmbxRAhtoaPsAAAEB", "-uMqCP7jKggAAAAAVAAAABQAAAAAAAAAAAAAAP____9P6QAA8cNRApCZaPsAAAEB"],
+		"checksum": 1236608269
+	},
+	"route_name": ["Q Street Northwest", "13th Street Northwest"],
+	"status_message": "Found route between points",
+	"route_geometry": "qh}eiAh}j}qC?sN?gkA@gI?}F?aI?_J@e~D?mrA@i`@?eH?{E?sc@?ohA@e~B?s]?gI?{H@cY?_]?}fA?wFeD?{SBgSAwS@qXA?fF?fh@?lo@gXF@qH",
+	"via_indices": [0, 31],
+	"route_instructions": [
+		["10", "Q Street Northwest", 1217, 0, 119, "1217m", "E", 90, 1, "W", 270],
+		["7", "13th Street Northwest", 165, 21, 17, "164m", "N", 0, 1, "S", 180],
+		["7", "R Street Northwest", 134, 26, 12, "134m", "W", 270, 1, "E", 90],
+		["3", "", 45, 29, 8, "44m", "N", 358, 1, "S", 178],
+		["3", "", 13, 30, 2, "13m", "E", 90, 1, "W", 270],
+		["15", "", 0, 31, 0, "0m", "N", 0, 1, "N", 0]
+	],
+	"via_points": [
+		[38.911129, -77.043685],
+		[38.913009, -77.031024]
+	],
+	"found_alternative": false,
+	"route_summary": {
+		"total_distance": 1574,
+		"total_time": 154,
+		"end_point": "",
+		"start_point": "Q Street Northwest"
+	}
+}
