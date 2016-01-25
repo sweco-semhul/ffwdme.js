@@ -6,6 +6,7 @@ var Route = require('./route');
 var NavigationInfo = require('./navigation_info');
 var RoutingBase = require('./routing/base');
 var RoutingGraphHopper = require('./routing/graph_hopper');
+var RoutingOSRM = require('./routing/osrm');
 var UtilsGeo = require('./utils/geo');
 var UtilsProxy = require('./utils/proxy');
 
@@ -25,7 +26,8 @@ var UtilsProxy = require('./utils/proxy');
 
     routing: {
       Base: RoutingBase,
-      GraphHopper: RoutingGraphHopper
+      GraphHopper: RoutingGraphHopper,
+      OSRM: RoutingOSRM
     },
 
     utils: {
