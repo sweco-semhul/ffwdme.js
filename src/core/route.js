@@ -110,7 +110,8 @@ var Route = Class.extend({
 }, {
 
   // This function is from Google's polyline utility.
-  decodePolyline: function(polylineStr) {
+  decodePolyline: function(polylineStr, precision) {
+    var factor = 1/Math.pow(10, precision || 5);
     var len = polylineStr.length;
     var index = 0;
     var array = [];
@@ -139,7 +140,7 @@ var Route = Class.extend({
       var dlng = ((result & 1) ? ~(result >> 1) : (result >> 1));
       lng += dlng;
 
-      array.push([lat * 1e-5, lng * 1e-5]);
+      array.push([lat * factor, lng * factor]);
     }
 
     return array;
