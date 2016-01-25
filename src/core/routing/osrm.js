@@ -156,7 +156,7 @@ var OSRM = Base.extend({
       case 6: // turn sharp left
         return 'TSHL';
       case 7: // turn left
-        return 'T';
+        return 'TL';
       case 8: // turn slight left
         return 'TSLL';
       case 9: // sub destination reached
