@@ -98,7 +98,7 @@ var OSRM = Base.extend({
 
   parse: function(response) {
 
-    if (response.status !== 200) return this.error(response);
+    if (response.status !== 200 && response.status !== 0) return this.error(response);
 
     var routeStruct = { directions: [] };
     routeStruct.summary = {
