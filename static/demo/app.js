@@ -11,7 +11,10 @@ function init() {
 
   // setup ffwdme
   ffwdme.initialize({
-    routing: 'GraphHopper',
+    routing: (/r=osrm/).test(window.location.href) ? 'OSRM' : 'GraphHopper',
+    osrm: {
+      apiKey: ''
+    },
     graphHopper: {
       apiKey: CREDENTIALS.graphHopper
     }
