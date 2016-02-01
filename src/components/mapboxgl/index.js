@@ -135,10 +135,9 @@ var MapboxGL = BaseMap.extend({
     if (!this.polylines) {
       this.polylines = {underlay: {}, overlay: {}};
 
-      this.polylines.underlay.source = {
-                "type": "geojson",
-                "data": this._lnglatsToLineString(lnglats)
-      };
+      this.polylines.underlay.source = new mapboxgl.GeoJSONSource({
+                data: this._lnglatsToLineString(lnglats)
+      });
       this.polylines.underlay.layer = {
         "id": "polyline-underlay",
         "type": "line",
@@ -226,6 +225,14 @@ var MapboxGL = BaseMap.extend({
       this.map.addLayer(this.helpLine.layer);
     } else {
       this.helpLine.source.setData(this._lnglatsToLineString(lnglats));
+    }
+  },
+
+  removeHelpLine: function() {
+    if(this.helpLine) {
+      this.map.removeLayer(this.helpLine.layer.id);
+      this.map.removeSource(this.helpLine.source.id);
+      delete this.helpLine;
     }
   },
 
